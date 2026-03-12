@@ -12,20 +12,20 @@ import { LEAGUES, LEAGUE_LIST } from '@/lib/leagues';
 
 export const revalidate = 55;
 
-const API_FOOTBALL_BASE = 'https://api-football-v1.p.rapidapi.com/v3';
+const API_FOOTBALL_BASE = 'https://v3.football.api-sports.io';
 
 function today() {
   return new Date().toISOString().split('T')[0];
 }
 
 async function fetchFootballApi(endpoint) {
-  const key = process.env.FOOTBALL_API_KEY;
+  const key = process.env.RAPIDAPI_KEY;
   if (!key) return null;
 
   const res = await fetch(`${API_FOOTBALL_BASE}${endpoint}`, {
     headers: {
-      'X-RapidAPI-Key': key,
-      'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
+      'x-rapidapi-key': key,
+      'x-rapidapi-host': 'v3.football.api-sports.io',
     },
     next: { revalidate: 55 },
   });
@@ -164,7 +164,7 @@ export async function GET(request) {
     ? LEAGUE_LIST.filter((l) => leagueFilter.includes(l.id))
     : LEAGUE_LIST;
 
-  const hasFootballKey = !!process.env.FOOTBALL_API_KEY;
+  const hasFootballKey = !!process.env.RAPIDAPI_KEY;
   const hasOddsKey = !!process.env.THE_ODDS_API_KEY;
 
   // Fetch fixtures from API-Football for each league (in parallel)
