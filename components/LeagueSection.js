@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { LEAGUES } from '@/lib/leagues';
-import FixtureRow from './FixtureRow';
+import FixtureCard from './FixtureRow';
 
 export default function LeagueSection({ leagueId, fixtures }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -54,10 +54,10 @@ export default function LeagueSection({ leagueId, fixtures }) {
       {!collapsed && (
         <div className="league-section-body">
           {sorted.map((fixture) => (
-            <FixtureRow
+            <FixtureCard
               key={fixture.id}
               fixture={fixture}
-              leagueColor={league.color}
+              
             />
           ))}
         </div>
